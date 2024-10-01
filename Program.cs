@@ -6,7 +6,7 @@ namespace NameSorter
     //Klass som innehåller metoder för att hantera en lista av namn
     public class Metoder
     {
-        //Lista som lagrar namn 
+        //Lista som lagrar namn. Lista eftersom den har en,dynamisk storlek, lätt att manipulera, flexibilitet och prestanda
         List<string> names = new List<string> { "Anna", "John", "Alice", "Bo" };
         // Metod för att omformatera så att första bokstaven blir stor och resterande små
         public string CapitalizeFirstLetter(string input)
@@ -29,49 +29,62 @@ namespace NameSorter
             }
         }
 
+        //Metod för att validera att namnet innehåller bara bokstäver
+        public string GetValidName()
+        {
+            Console.WriteLine("Skriv vilket namn du vill lägga till:");
+            string addname= Console.ReadLine();
+            //Kontrollerar att namnet endast innehåller bokstäver
+            while (!addname.All(char.IsLetter))
+            {
+                Console.WriteLine("Ogiltlig inmatning. Ange namn som enbart inehåller bokstäver inga siffror");
+                addname = Console.ReadLine();
+
+            }
+            return addname;
+        }
+
+        
+
+        //Metod för att säkerställa att en matning är ja/nej
+        public string ja_nej()
+        {
+          string input = Console.ReadLine().ToUpper();
+          
+            while (input != "JA" && input != "NEJ")
+            {
+              
+                Console.WriteLine("Fel inmatning. Du kan endast svara ja/nej. Försök igen\n");
+                Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
+                input = Console.ReadLine().ToUpper();
+                
+            }
+            return input;
+        }
+            
+        
+
         //Metod för att lägga till namn i listan 
         public void lägga_till()
         {
             //Fråga användaren om de vill lägga till namn 
             Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
-            string input = Console.ReadLine().ToUpper();
+            string input;
 
             //Loop för att säkerställa att inmatningen är ja eller nej
-            while (input !="JA" && input !="NEJ")
-            {
-                Console.WriteLine("Fel inmatning. Du kan endast svara ja/nej. Försök igen\n");
-                Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
-                input = Console.ReadLine().ToUpper();
-            }
+            input = ja_nej();
 
             //Loop för att lägga till namn så länge användaren svarar ja 
             while (input == "JA")
             {
-                Console.WriteLine("Skriv vilket namn du vill lägga till:");
-                string addname = Console.ReadLine();
-
-                //Kontrollerar att namnet endast innehåller bokstäver
-                while (!addname.All(char.IsLetter))
-                {
-                    Console.WriteLine("Ogiltlig inmatning. Ange namn som enbart inehåller bokstäver inga siffror");
-                    addname = Console.ReadLine();
-   
-                }
+                string addname = GetValidName();
                 //Kallar på CapitalizeFirstLetter för att omformatera namnet 
                 string reformated = CapitalizeFirstLetter(addname);
                 names.Add(reformated);//Lägger till det omformaterade namnet i listan
-
                 //Frågar om användaren vill lägga till fler namn
                 Console.WriteLine("Vill du fortsätta och lägga till ett namn i listan igen? skriv Ja/Nej");
-                input = Console.ReadLine().ToUpper();
+                input=ja_nej();
 
-                //Loop för att säkerställa att inmatningen är ja eller nej
-                while (input != "JA" && input != "NEJ")
-                {
-                    Console.WriteLine("Fel inmatning. Du kan endast svara ja/nej. Försök igen\n");
-                    Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
-                    input = Console.ReadLine().ToUpper();
-                }
 
             }
         }
@@ -79,7 +92,7 @@ namespace NameSorter
         //Metod för att sortera namnen i listan 
         public void sortera()
         {
-            Console.WriteLine("Sorterad lista");
+            Console.WriteLine("Sorterad och uppdaterad lista");
             names.Sort(); //sortera listan med namn
             lista(); //Skriv ut den sorterade listan
         }
@@ -89,10 +102,10 @@ namespace NameSorter
         {
             Console.WriteLine("Vill du söka efter ett namn");
             string search = Console.ReadLine(); //ta emot namnet att söka efter
-            
+
             //Omformatera namnet för att matcha formatet i listan
             string reformated = CapitalizeFirstLetter(search);
-            
+
             //kontrollera om namnet finns i listan och ge feedback till användaren
             if (names.Contains(reformated))
             {
@@ -104,7 +117,6 @@ namespace NameSorter
             }
         }
 
-
     }
     class Program
     {
@@ -114,12 +126,16 @@ namespace NameSorter
             Metoder metoder = new Metoder();
             //Skriv ut den ursprungliga listan av namn
             metoder.lista();
+            Console.WriteLine();
             //Låt användaren lägga till namn
             metoder.lägga_till();
+            Console.WriteLine();
             //Sortera och skriv ut den sorterade listan av namn
             metoder.sortera();
+            Console.WriteLine();
             //Sök efter ett namn i listan
             metoder.search();
+            Console.WriteLine();
         }
     }
 }
