@@ -28,6 +28,21 @@ namespace NameSorter
             names.Sort();
             lista();
         }
+
+        //Metod för name search
+        public void search()
+        {
+            Console.WriteLine("Vill du söka efter ett namn");
+            string search = Console.ReadLine();
+            if (names.Contains(search))
+            {
+                Console.WriteLine($"{search} finns i listan");
+            }
+            else
+            {
+                Console.WriteLine($"{search} finns ej listan");
+            }
+        }
       
 
     }
@@ -40,6 +55,7 @@ namespace NameSorter
             metoder.lista();
             metoder.lägga_till();
             metoder.sortera();
+            metoder.search();
             /*
             List<string> names = new List<string> { "Anna", "John", "Alice", "Bo" };
             Console.WriteLine("Original List");
