@@ -76,20 +76,24 @@ namespace NameSorter
             }
         }
 
-        //Metod för name sort 
+        //Metod för att sortera namnen i listan 
         public void sortera()
         {
             Console.WriteLine("Sorterad lista");
-            names.Sort();
-            lista();
+            names.Sort(); //sortera listan med namn
+            lista(); //Skriv ut den sorterade listan
         }
 
-        //Metod för name search
+        //Metod för att söka efter ett namn i listan
         public void search()
         {
             Console.WriteLine("Vill du söka efter ett namn");
-            string search = Console.ReadLine();
+            string search = Console.ReadLine(); //ta emot namnet att söka efter
+            
+            //Omformatera namnet för att matcha formatet i listan
             string reformated = CapitalizeFirstLetter(search);
+            
+            //kontrollera om namnet finns i listan och ge feedback till användaren
             if (names.Contains(reformated))
             {
                 Console.WriteLine($"{reformated} finns i listan");
@@ -106,10 +110,15 @@ namespace NameSorter
     {
         static void Main(string[] args)
         {
+            //Skapa en instans av metoder för att använda dess funktioner 
             Metoder metoder = new Metoder();
+            //Skriv ut den ursprungliga listan av namn
             metoder.lista();
+            //Låt användaren lägga till namn
             metoder.lägga_till();
+            //Sortera och skriv ut den sorterade listan av namn
             metoder.sortera();
+            //Sök efter ett namn i listan
             metoder.search();
         }
     }
