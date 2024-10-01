@@ -33,7 +33,7 @@ namespace NameSorter
         public string GetValidName()
         {
             Console.WriteLine("Skriv vilket namn du vill lägga till:");
-            string addname= Console.ReadLine();
+            string addname = Console.ReadLine();
             //Kontrollerar att namnet endast innehåller bokstäver
             while (!addname.All(char.IsLetter))
             {
@@ -44,25 +44,25 @@ namespace NameSorter
             return addname;
         }
 
-        
+
 
         //Metod för att säkerställa att en matning är ja/nej
         public string ja_nej()
         {
-          string input = Console.ReadLine().ToUpper();
-          
+            string input = Console.ReadLine().ToUpper();
+
             while (input != "JA" && input != "NEJ")
             {
-              
+
                 Console.WriteLine("Fel inmatning. Du kan endast svara ja/nej. Försök igen\n");
                 Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
                 input = Console.ReadLine().ToUpper();
-                
+
             }
             return input;
         }
-            
-        
+
+
 
         //Metod för att lägga till namn i listan 
         public void lägga_till()
@@ -83,8 +83,8 @@ namespace NameSorter
                 names.Add(reformated);//Lägger till det omformaterade namnet i listan
                 //Frågar om användaren vill lägga till fler namn
                 Console.WriteLine("Vill du fortsätta och lägga till ett namn i listan igen? skriv Ja/Nej");
-                input=ja_nej();
-
+                //kallar på metoden lagrar i input
+                input = ja_nej();
 
             }
         }
@@ -102,9 +102,16 @@ namespace NameSorter
         {
             Console.WriteLine("Vill du söka efter ett namn");
             string search = Console.ReadLine(); //ta emot namnet att söka efter
+            //kollar att search strängen innehåller enbart bokstäver.
+            while (!search.All(char.IsLetter))
+            {
+                Console.WriteLine("Ogiltlig inmatning. Ange namn som enbart inehåller bokstäver inga siffror");
+                search = Console.ReadLine();
 
+            }
             //Omformatera namnet för att matcha formatet i listan
             string reformated = CapitalizeFirstLetter(search);
+
 
             //kontrollera om namnet finns i listan och ge feedback till användaren
             if (names.Contains(reformated))
