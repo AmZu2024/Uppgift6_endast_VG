@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 namespace NameSorter
 {
     public class Metoder
@@ -22,15 +23,43 @@ namespace NameSorter
                 Console.WriteLine(name);
             }
         }
+
         //Metod för att lägga till namn i listan 
         public void lägga_till()
         {
-            Console.WriteLine("Skriv vilket namn du vill lägga till:");
-            string addname = Console.ReadLine();
-            //Kallar på CapitalizeFirstLetter för att omformatera till uppercase på första resterande lowercase
-            string reformated = CapitalizeFirstLetter(addname);
+            Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
+            string input = Console.ReadLine().ToUpper();
+            while (input !="JA" && input !="NEJ")
+            {
+                Console.WriteLine("Fel inmatning. Du kan endast svara ja/nej. Försök igen\n");
+                Console.WriteLine("Vill du lägga till namn i listan? skriv ja/nej");
+                input = Console.ReadLine().ToUpper();
+            }
+            while (input == "JA")
+            {
+                Console.WriteLine("Skriv vilket namn du vill lägga till:");
+
+                string addname = Console.ReadLine();
+
+                while (!addname.All(char.IsLetter))
+                {
+                    Console.WriteLine("Ogiltlig inmatning. Ange namn som enbart inehåller bokstäver inga siffror");
+                    addname = Console.ReadLine();
+   
+                }
+                string reformated = CapitalizeFirstLetter(addname);
+                names.Add(reformated);
+
+                Console.WriteLine("Vill du fortsätta och lägga till ett namn i listan igen? skriv Ja/Nej");
+                input = Console.ReadLine().ToUpper();
+
+            }
             
-            names.Add(reformated);
+      
+            //Kallar på CapitalizeFirstLetter för att omformatera till uppercase på första resterande lowercase
+           
+
+            
         }
         //Metod för name sort 
         public void sortera()
