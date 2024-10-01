@@ -17,9 +17,18 @@ namespace NameSorter
         //Metod för att lägga till namn i listan 
         public void lägga_till()
         {
+            Console.WriteLine("Skriv vilket namn du vill lägga till:");
             string addname = Console.ReadLine();
             names.Add(addname);
         }
+        //Metod för name sort 
+        public void sortera()
+        {
+            Console.WriteLine("Sorterad lista");
+            names.Sort();
+            lista();
+        }
+      
 
     }
     class Program
@@ -28,8 +37,9 @@ namespace NameSorter
         {
 
             Metoder metoder = new Metoder();
-            metoder.lägga_till();
             metoder.lista();
+            metoder.lägga_till();
+            metoder.sortera();
             /*
             List<string> names = new List<string> { "Anna", "John", "Alice", "Bo" };
             Console.WriteLine("Original List");
