@@ -5,13 +5,21 @@ namespace NameSorter
     public class Metoder
     {
         List<string> names = new List<string> { "Anna", "John", "Alice", "Bo" };
-       
+        // Metod för att omformatera så att alla namn man lägger till eller söker efter har stor första bokstav resterande lower
+        public string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input; // Om strängen är tom eller null, returnera den som den är.
+
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
+        }
+
         //Metod for writing out names:
         public void lista()
         {
             foreach (string name in names)
             {
-                 Console.WriteLine(name);
+                Console.WriteLine(name);
             }
         }
         //Metod för att lägga till namn i listan 
@@ -19,7 +27,10 @@ namespace NameSorter
         {
             Console.WriteLine("Skriv vilket namn du vill lägga till:");
             string addname = Console.ReadLine();
-            names.Add(addname);
+            //Kallar på CapitalizeFirstLetter för att omformatera till uppercase på första resterande lowercase
+            string reformated = CapitalizeFirstLetter(addname);
+            
+            names.Add(reformated);
         }
         //Metod för name sort 
         public void sortera()
@@ -34,16 +45,17 @@ namespace NameSorter
         {
             Console.WriteLine("Vill du söka efter ett namn");
             string search = Console.ReadLine();
-            if (names.Contains(search))
+            string reformated = CapitalizeFirstLetter(search);
+            if (names.Contains(reformated))
             {
-                Console.WriteLine($"{search} finns i listan");
+                Console.WriteLine($"{reformated} finns i listan");
             }
             else
             {
-                Console.WriteLine($"{search} finns ej listan");
+                Console.WriteLine($"{reformated} finns ej listan");
             }
         }
-      
+
 
     }
     class Program
